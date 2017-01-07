@@ -261,33 +261,33 @@ int execute_command(cpu_t *cpu, code_t command) {
             cpu->stack_pointer++;
             break;
         case JMP_A16:
-            cpu->memory_pointer = concat_numbers(cpu->memory[++cpu->memory_pointer], cpu->memory[++cpu->memory_pointer]);
+            cpu->memory_pointer = concat_numbers(cpu->memory[cpu->memory_pointer + 2], cpu->memory[cpu->memory_pointer + 1]) - 1;
             break;
         case JZ_A16:
             if (cpu->flags[ZERO_FLAG])
-                cpu->memory_pointer = concat_numbers(cpu->memory[++cpu->memory_pointer], cpu->memory[++cpu->memory_pointer]);
+                cpu->memory_pointer = concat_numbers(cpu->memory[cpu->memory_pointer + 2], cpu->memory[cpu->memory_pointer + 1]) - 1;
             break;
         case JNZ_A16:
             if (!cpu->flags[ZERO_FLAG])
-                cpu->memory_pointer = concat_numbers(cpu->memory[++cpu->memory_pointer], cpu->memory[++cpu->memory_pointer]);
+                cpu->memory_pointer = concat_numbers(cpu->memory[cpu->memory_pointer + 2], cpu->memory[cpu->memory_pointer + 1]) - 1;
             break;
         case JP_A16:break;
         case JM_A16:break;
         case JC_A16:
             if (cpu->flags[CARRY_FLAG])
-                cpu->memory_pointer = concat_numbers(cpu->memory[++cpu->memory_pointer], cpu->memory[++cpu->memory_pointer]);
+                cpu->memory_pointer = concat_numbers(cpu->memory[cpu->memory_pointer + 2], cpu->memory[cpu->memory_pointer + 1]) - 1;
             break;
         case JNC_A16:
             if (!cpu->flags[CARRY_FLAG])
-                cpu->memory_pointer = concat_numbers(cpu->memory[++cpu->memory_pointer], cpu->memory[++cpu->memory_pointer]);
+                cpu->memory_pointer = concat_numbers(cpu->memory[cpu->memory_pointer + 2], cpu->memory[cpu->memory_pointer + 1]) - 1;
             break;
         case JPE_A16:
             if (cpu->flags[PARITY_FLAG])
-                cpu->memory_pointer = concat_numbers(cpu->memory[++cpu->memory_pointer], cpu->memory[++cpu->memory_pointer]);
+                cpu->memory_pointer = concat_numbers(cpu->memory[cpu->memory_pointer + 2], cpu->memory[cpu->memory_pointer + 1]) - 1;
             break;
         case JPO_A16:
             if (!cpu->flags[PARITY_FLAG])
-                cpu->memory_pointer = concat_numbers(cpu->memory[++cpu->memory_pointer], cpu->memory[++cpu->memory_pointer]);
+                cpu->memory_pointer = concat_numbers(cpu->memory[cpu->memory_pointer + 2], cpu->memory[cpu->memory_pointer + 1]) - 1;
             break;
         case LDA_A16:
             cpu->registers[REG_A] = cpu->memory[concat_numbers(cpu->memory[++cpu->memory_pointer], cpu->memory[++cpu->memory_pointer])];
@@ -682,15 +682,13 @@ int execute_command(cpu_t *cpu, code_t command) {
             return 0;
     }
 
-
-
+    cpu->program_counter = cpu->memory_pointer++;
     return 0;
 }
 
 int execute(cpu_t *cpu) {
     while (cpu->memory[cpu->memory_pointer] != HLT && cpu->memory_pointer < MEMORY_SIZE) {
         execute_command(cpu, (code_t) cpu->memory[cpu->memory_pointer]);
-        cpu->program_counter = cpu->memory_pointer++;
     }
 
     return 0;
