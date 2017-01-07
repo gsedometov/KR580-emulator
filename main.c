@@ -24,10 +24,10 @@ void show_cpu_state(cpu_t *cpu) {
 
 int main() {
     uint8_t opcodes[] = {
-            0x26, 0x40, 0x2E, 0x05, 0x7D, 0x84, 0x76
+            0x3E, 0x00, 0xC3, 0x07, 0x10, 0x3E, 0x20, 0x3E, 0xFF, 0x76
     };
 
-    cpu_t cpu = init_cpu(opcodes, sizeof(opcodes) / sizeof(opcodes[0]), 0);
+    cpu_t cpu = init_cpu(opcodes, sizeof(opcodes) / sizeof(opcodes[0]), 0x1000);
     show_cpu_state(&cpu);
     execute(&cpu);
     show_cpu_state(&cpu);
