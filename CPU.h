@@ -298,3 +298,5 @@ int execute_command(cpu_t *cpu, code_t command);
 int execute(cpu_t *cpu);
 
 #endif //EMULATOR_CPU_H
+
+extern cpu_t
