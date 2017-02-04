@@ -6,6 +6,7 @@
 #define EMULATOR_CPU_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #define REGISTERS_COUNT 0x8
 #define MEMORY_SIZE 0xFFFF
@@ -278,11 +279,11 @@ typedef enum {
     SIGN_FLAG
 } flag_t;
 
-typedef enum { false = 0, true } bool_t;
+// typedef enum { false = 0, true } bool;
 
 typedef struct {
     uint8_t registers[REGISTERS_COUNT];
-    bool_t flags[FLAGS_COUNT];
+    bool flags[FLAGS_COUNT];
     uint8_t memory[MEMORY_SIZE];
     uint8_t stack[STACK_SIZE];
     uint16_t program_counter;
@@ -290,7 +291,7 @@ typedef struct {
     uint32_t tick_counter;
 
     uint16_t memory_pointer;
-    bool_t interrupts_enabled;
+    bool interrupts_enabled;
 } cpu_t;
 
 cpu_t init_cpu(uint8_t *opcodes, uint16_t size, uint16_t start_address);
@@ -298,5 +299,3 @@ int execute_command(cpu_t *cpu, code_t command);
 int execute(cpu_t *cpu);
 
 #endif //EMULATOR_CPU_H
-
-extern cpu_t

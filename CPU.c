@@ -25,7 +25,7 @@ uint16_t get_address_from_registers(cpu_t *cpu, register_t r1, register_t r2) {
     return concat_numbers(cpu->registers[r1], cpu->registers[r2]);
 }
 
-void set_flag(cpu_t *cpu, flag_t flag, bool_t value) {
+void set_flag(cpu_t *cpu, flag_t flag, bool value) {
     cpu->flags[flag] = value;
 }
 
@@ -145,28 +145,28 @@ int execute_command(cpu_t *cpu, code_t command) {
             set_flag(cpu, ZERO_FLAG, true);
             break;
         case CMP_B:
-            set_flag(cpu, ZERO_FLAG, (bool_t) (cpu->registers[REG_B] - cpu->registers[REG_A]));
+            set_flag(cpu, ZERO_FLAG, (bool) (cpu->registers[REG_B] - cpu->registers[REG_A]));
             break;
         case CMP_C:
-            set_flag(cpu, ZERO_FLAG, (bool_t) (cpu->registers[REG_C] - cpu->registers[REG_A]));
+            set_flag(cpu, ZERO_FLAG, (bool) (cpu->registers[REG_C] - cpu->registers[REG_A]));
             break;
         case CMP_D:
-            set_flag(cpu, ZERO_FLAG, (bool_t) (cpu->registers[REG_D] - cpu->registers[REG_A]));
+            set_flag(cpu, ZERO_FLAG, (bool) (cpu->registers[REG_D] - cpu->registers[REG_A]));
             break;
         case CMP_E:
-            set_flag(cpu, ZERO_FLAG, (bool_t) (cpu->registers[REG_C] - cpu->registers[REG_A]));
+            set_flag(cpu, ZERO_FLAG, (bool) (cpu->registers[REG_C] - cpu->registers[REG_A]));
             break;
         case CMP_H:
-            set_flag(cpu, ZERO_FLAG, (bool_t) (cpu->registers[REG_H] - cpu->registers[REG_A]));
+            set_flag(cpu, ZERO_FLAG, (bool) (cpu->registers[REG_H] - cpu->registers[REG_A]));
             break;
         case CMP_L:
-            set_flag(cpu, ZERO_FLAG, (bool_t) (cpu->registers[REG_L] - cpu->registers[REG_A]));
+            set_flag(cpu, ZERO_FLAG, (bool) (cpu->registers[REG_L] - cpu->registers[REG_A]));
             break;
         case CMP_M:
-            set_flag(cpu, ZERO_FLAG, (bool_t) (cpu->memory[h_address] - cpu->registers[REG_A]));
+            set_flag(cpu, ZERO_FLAG, (bool) (cpu->memory[h_address] - cpu->registers[REG_A]));
             break;
         case CPI_D8:
-            set_flag(cpu, ZERO_FLAG, (bool_t) (cpu->memory[++cpu->memory_pointer] - cpu->registers[REG_A]));
+            set_flag(cpu, ZERO_FLAG, (bool) (cpu->memory[++cpu->memory_pointer] - cpu->registers[REG_A]));
             break;
         case DAA:break;
         case DAD_B:
